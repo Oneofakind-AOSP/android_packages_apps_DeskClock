@@ -49,7 +49,6 @@ import com.android.internal.app.IAppOpsService;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
-import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
 
 /**
@@ -195,7 +194,6 @@ public class AlarmKlaxon {
                 try {
                     collectFiles(context, alarmNoise);
                     if (mSongs.size() != 0) {
-                        LogUtils.i("Scanned files: " + mSongs.size());
                         alarmNoise = mSongs.get(0);
                     } else {
                         // fallback
@@ -211,7 +209,6 @@ public class AlarmKlaxon {
             }
         }
         if (alarmNoise == null) {
-            LogUtils.e("Play default alarm");
             // no ringtone == default
             alarmNoise = getDefaultAlarm(context);
         } else if (AlarmInstance.NO_RINGTONE_URI.equals(alarmNoise)) {
@@ -404,29 +401,11 @@ public class AlarmKlaxon {
         if (folder.exists() && folder.isDirectory()) {
             for (final File fileEntry : folder.listFiles()) {
                 if (!fileEntry.isDirectory()) {
-                    if (Utils.isValidAudioFile(fileEntry.getName())) {
-                        mSongs.add(Uri.fromFile(fileEntry));
-                    }
-                } else {
-                    collectSub(context, fileEntry);
+                    mSongs.add(Uri.fromFile(fileEntry));
                 }
             }
             if (sRandomPlayback) {
                 Collections.shuffle(mSongs);
-            }
-        }
-    }
-
-    private static void collectSub(Context context, File folder) {
-        if (folder.exists() && folder.isDirectory()) {
-            for (final File fileEntry : folder.listFiles()) {
-                if (!fileEntry.isDirectory()) {
-                    if (Utils.isValidAudioFile(fileEntry.getName())) {
-                        mSongs.add(Uri.fromFile(fileEntry));
-                    }
-                } else {
-                    collectSub(context, fileEntry);
-                }
             }
         }
     }

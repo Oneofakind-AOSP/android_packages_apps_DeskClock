@@ -21,8 +21,8 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentResolver;
@@ -374,19 +374,17 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void showLabelDialog(final Alarm alarm) {
-        closeLabelDialog();
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        final Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
 
         // Create and show the dialog.
         final LabelDialogFragment newFragment =
                 LabelDialogFragment.newInstance(alarm, alarm.label, getTag());
-        newFragment.show(getFragmentManager(), "label_dialog");
-    }
-
-    private void closeLabelDialog() {
-        final Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
-        if (prev != null) {
-            ((DialogFragment)prev).dismiss();
-        }
+        newFragment.show(ft, "label_dialog");
     }
 
     public void setLabel(Alarm alarm, String label) {
@@ -1483,17 +1481,15 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void showAlarmRingtoneDialog(Alarm alarm, boolean preAlarm) {
-        closeAlarmRingtoneDialog();
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        final Fragment prev = getFragmentManager().findFragmentByTag("alarm_ringtone_edit");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
 
         AlarmRingtoneDialog fragment = AlarmRingtoneDialog.newInstance(alarm, preAlarm, getTag());
         fragment.show(getFragmentManager(), "alarm_ringtone_edit");
-    }
-
-    private void closeAlarmRingtoneDialog() {
-        final Fragment prev = getFragmentManager().findFragmentByTag("alarm_ringtone_edit");
-        if (prev != null) {
-            ((DialogFragment)prev).dismiss();
-        }
     }
 
     public void onFinishOk(Alarm alarm, boolean preAlarm, boolean alarmMedia) {

@@ -584,7 +584,10 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+    super.onDestroy();
+        if (mAddCityDialog != null) {
+            mAddCityDialog.dismiss();
+        }
     }
 
     private void updateLayout() {
@@ -616,10 +619,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
     @Override
     public void onPause() {
         super.onPause();
-        if (mAddCityDialog != null) {
-            mAddCityDialog.dismiss();
-            mAddCityDialog = null;
-        }
         Cities.saveCitiesToSharedPrefs(PreferenceManager.getDefaultSharedPreferences(this),
                 mUserSelectedCities);
         Intent i = new Intent(Cities.WORLDCLOCK_UPDATE_INTENT);
