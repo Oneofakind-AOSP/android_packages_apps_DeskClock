@@ -154,7 +154,7 @@ public class AlarmRingtoneDialog extends DialogFragment implements
             mRandomModeValue = mAlarm.getRandomMode(mPreAlarm);
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTheme)
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
         .setTitle(mPreAlarm ? R.string.prealarm_title : R.string.alarm_title)
         .setPositiveButton(android.R.string.ok, this)
         .setNeutralButton(R.string.alarm_test_button, null)
@@ -274,12 +274,17 @@ public class AlarmRingtoneDialog extends DialogFragment implements
             }
         });
         mMediaTypeSelect = (Spinner) view.findViewById(R.id.alarm_type_select);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                getActivity(), R.array.alarm_type_entries,
-                R.layout.spinner_item);
-        mMediaTypeSelect.setAdapter(adapter);
-
+        if (mPreAlarm) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    getActivity().getApplicationContext(), R.array.prealarm_type_entries,
+                    R.layout.alarm_type_item);
+            mMediaTypeSelect.setAdapter(adapter);
+        } else {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    getActivity().getApplicationContext(), R.array.alarm_type_entries,
+                    R.layout.alarm_type_item);
+            mMediaTypeSelect.setAdapter(adapter);
+        }
         mMediaTypeSelect.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -315,9 +320,9 @@ public class AlarmRingtoneDialog extends DialogFragment implements
             preAlarmSection.setVisibility(View.VISIBLE);
 
             mPreAlarmTimeSelect = (Spinner) view.findViewById(R.id.pre_alarm_time_select);
-            adapter = ArrayAdapter.createFromResource(
-                    getActivity(), R.array.pre_alarm_times_entries,
-                    R.layout.spinner_item);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    getActivity().getApplicationContext(), R.array.pre_alarm_times_entries,
+                    R.layout.alarm_type_item);
             mPreAlarmTimeSelect.setAdapter(adapter);
 
             mPreAlarmTimeSelect.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){

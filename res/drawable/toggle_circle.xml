@@ -20,7 +20,7 @@
     <item>
         <bitmap
             android:src="@drawable/bg_day_selected"
-            android:tint="@color/view_background"
+            android:tint="@color/bg_day_tint_color"
             android:gravity="center" />
     </item>
     <item android:id="@android:id/mask">

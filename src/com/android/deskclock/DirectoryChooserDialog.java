@@ -34,7 +34,6 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,6 @@ public class DirectoryChooserDialog extends DialogFragment
     private ListView mListView;
     private String mTag;
     private TextView mCurrentDirDisplay;
-    private int mTextColor;
 
     public interface ChosenDirectoryListener {
         public void onChooseDirOk(Uri chosenDir);
@@ -153,9 +151,9 @@ public class DirectoryChooserDialog extends DialogFragment
                 File f = mSubDirs.get(position);
                 tv.setText(f.getName());
                 if (f.isFile()) {
-                    tv.setTextColor(getActivity().getResources().getColor(R.color.text_color_disabled));
+                    tv.setTextColor(getActivity().getResources().getColor(R.color.clock_gray));
                 } else {
-                    tv.setTextColor(getActivity().getResources().getColor(R.color.text_color_light));
+                    tv.setTextColor(getActivity().getResources().getColor(R.color.black_87p));
                 }
                 return item;
             }
@@ -167,10 +165,6 @@ public class DirectoryChooserDialog extends DialogFragment
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater
                 .inflate(R.layout.folder_dialog, null);
-
-        TypedValue outValue = new TypedValue();
-        getActivity().getTheme().resolveAttribute(android.R.attr.textColorPrimary, outValue, true);
-        mTextColor = getActivity().getResources().getColor(outValue.resourceId);
 
         mCurrentDir = mSDCardDirectory;
         mSubDirs = getDirectories(mSDCardDirectory);

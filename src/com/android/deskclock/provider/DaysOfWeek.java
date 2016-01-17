@@ -68,15 +68,15 @@ public final class DaysOfWeek {
         mBitSet = bitSet;
     }
 
-    public String toString(Context context, boolean showNever, int ... daysOfWeek) {
-        return toString(context, showNever, false, daysOfWeek);
+    public String toString(Context context, boolean showNever) {
+        return toString(context, showNever, false);
     }
 
-    public String toAccessibilityString(Context context, int ... daysOfWeek) {
-        return toString(context, false, true, daysOfWeek);
+    public String toAccessibilityString(Context context) {
+        return toString(context, false, true);
     }
 
-    private String toString(Context context, boolean showNever, boolean forAccessibility, int ... daysOfWeek) {
+    private String toString(Context context, boolean showNever, boolean forAccessibility) {
         StringBuilder ret = new StringBuilder();
 
         // no days
@@ -104,8 +104,7 @@ public final class DaysOfWeek {
                 dfs.getShortWeekdays();
 
         // selected days
-        for (int day : daysOfWeek) {
-            int bitIndex = convertDayToBitIndex(day);
+        for (int bitIndex = 0; bitIndex < DAYS_IN_A_WEEK; bitIndex++) {
             if ((mBitSet & (1 << bitIndex)) != 0) {
                 ret.append(dayList[convertBitIndexToDay(bitIndex)]);
                 dayCount -= 1;

@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Outline;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 
@@ -21,6 +20,8 @@ import com.android.deskclock.stopwatch.Stopwatches;
  * Stopwatch counts up. In this mode the animation is clockwise and will run until stopped.
  */
 public class CircleTimerView extends View {
+
+
     private int mAccentColor;
     private int mWhiteColor;
     private long mIntervalTime = 0;
@@ -121,11 +122,7 @@ public class CircleTimerView extends View {
                 mStrokeSize, dotDiameter, mMarkerStrokeSize);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
-
-        TypedValue outValue = new TypedValue();
-        c.getTheme().resolveAttribute(android.R.attr.textColorPrimary, outValue, true);
-        mWhiteColor = resources.getColor(outValue.resourceId);
-
+        mWhiteColor = resources.getColor(R.color.text_color_light);
         mAccentColor = resources.getColor(R.color.hot_blue);
         mScreenDensity = resources.getDisplayMetrics().density;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
+<!-- Copyright (C) 2013 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,27 +20,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ListView
-        android:id="@+id/alarms_list"
+    <LinearLayout
+        android:id="@+id/alarm_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="10dip"
-        android:scrollbars="none"
-        android:divider="@null"
-        android:clipToPadding="false" />
+        android:orientation="horizontal"
+        android:baselineAligned="false" >
+
+        <ListView
+            android:id="@+id/alarms_list"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:dividerHeight="10dip"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:clipToPadding="false" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/alarms_empty_view"
-        style="@style/no_alarms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/no_alarms"
-        android:drawableTop="@drawable/ic_noalarms_black"
-        android:textColor="@color/no_alarms_text_color"
-        android:text="@string/no_alarms" />
-
-    <FrameLayout android:id="@+id/undo_frame"
+            android:id="@+id/alarms_empty_view"
+            style="@style/no_alarms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/no_alarms"
+            android:drawableTop="@drawable/ic_noalarms_black"
+            android:textColor="@color/no_alarms_text_color"
+            android:text="@string/no_alarms" />
+ 
+   <FrameLayout android:id="@+id/undo_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" >
