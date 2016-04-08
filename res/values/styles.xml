@@ -169,7 +169,7 @@
         <item name="android:textSize">@dimen/custom_widget_label_font_size</item>
     </style>
 
-    <style name="header_1">
+    <style name="header">
         <item name="android:textSize">@dimen/header_font_size</item>
         <item name="android:textStyle">bold</item>
     </style>
