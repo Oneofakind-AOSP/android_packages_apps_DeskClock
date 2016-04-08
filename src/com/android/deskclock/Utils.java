@@ -528,7 +528,7 @@ public class Utils {
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
         // Remove the am/pm
         if (amPmFontSize <= 0) {
-            pattern.replaceAll("a", "").trim();
+            pattern = pattern.replaceAll("a", "").trim();
         }
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
